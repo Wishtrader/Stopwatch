@@ -10,4 +10,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="stopwatch.com.craneglee.stopwatch.StopwatchActivity">
 
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/time_view"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="84sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        android:onClick="onClickStart"
+        android:id="@+id/start_button"
+        android:text="@string/start"
+        android:layout_below="@+id/time_view"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stop_button"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/start_button"
+        android:layout_alignLeft="@+id/start_button"
+        android:onClick="onClickStop"
+        android:layout_alignStart="@+id/start_button" />
+
+    <Button
+        android:text="@string/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reset_button"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/stop_button"
+        android:layout_alignLeft="@+id/stop_button"
+        android:layout_alignStart="@+id/stop_button"
+        android:onClick="onClickReset"/>
 </RelativeLayout>
