@@ -10,11 +10,43 @@ public class StopwatchActivity extends AppCompatActivity {
 
     private int seconds = 0; //Переменная хранит уоличество прошедших секунд
     private boolean running; // флаг работы секундомера
+    private boolean wasRunning; // в переменной хранится информация о том,
+    //работал ли секундомер перед вызовом onStop().
 
     @Override
+    public void onSaveInstanceState (Bundle savedInstanceState) {
+        //Значения переменных seconds и running сохраняются в Bundle.
+        savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putBoolean("running", running);
+        //Сщхранить состояние переменной wasRunning.
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        wasRunning = running;
+        running = false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (wasRunning) {
+            running = true;
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        if (savedInstanceState != null) {
+            //Получить значения переменных seconds и running из Bundle.
+            seconds = savedInstanceState.getInt("seconds");
+            running = savedInstanceState.getBoolean("running");
+            //Восстановить состояние переменной wasRunning, если активность создается заново.
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
+        }
         runTimer(); //Для обновления секундомера используется отдельный метод.
         //Он запускается при сощдании активности.
     }
@@ -57,7 +89,7 @@ public class StopwatchActivity extends AppCompatActivity {
                     //Если значение running истинно, увеличить переменную seconds.
                     seconds++;
                 }
-                //Запоанировать повторное выполнение кода с задержкой в 1 секунду.
+                //Запланировать повторное выполнение кода с задержкой в 1 секунду.
                 handler.postDelayed(this, 1000);
                 //Код из объекта Runnable передается на повторное выполнение после истечения
                 //задержки в 1000 миллисекунд (1 секунда).
